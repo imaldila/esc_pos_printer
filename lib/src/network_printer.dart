@@ -25,6 +25,8 @@ class NetworkPrinter {
   int? _port;
   late Generator _generator;
   late Socket _socket;
+  late bool isClosed;
+  bool isPrintCompleted = false;
 
   int? get port => _port;
   String? get host => _host;
@@ -38,15 +40,20 @@ class NetworkPrinter {
     try {
       _socket = await Socket.connect(host, port, timeout: timeout);
       _socket.add(_generator.reset());
+      isClosed = false;
+
       return Future<PosPrintResult>.value(PosPrintResult.success);
     } catch (e) {
+      isClosed = true;
       return Future<PosPrintResult>.value(PosPrintResult.timeout);
     }
   }
 
   /// [delayMs]: milliseconds to wait after destroying the socket
   void disconnect({int? delayMs}) async {
-    _socket.destroy();
+    _socket.close();
+    isClosed = true;
+    isPrintCompleted = true;
     if (delayMs != null) {
       await Future.delayed(Duration(milliseconds: delayMs), () => null);
     }
@@ -106,6 +113,7 @@ class NetworkPrinter {
 
   void beep({int n = 3, PosBeepDuration duration = PosBeepDuration.beep450ms}) {
     _socket.add(_generator.beep(n: n, duration: duration));
+    isPrintCompleted = true;
   }
 
   void reverseFeed(int n) {
