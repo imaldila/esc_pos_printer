@@ -67,9 +67,11 @@ packages:
   esc_pos_utils:
     dependency: "direct main"
     description:
-      name: esc_pos_utils
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "89482f2bf23c6216714a414da36220edcad777f9"
+      url: "https://github.com/imaldila/esc_pos_utils"
+    source: git
     version: "1.1.0"
   fake_async:
     dependency: transitive
