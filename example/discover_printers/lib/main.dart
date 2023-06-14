@@ -303,7 +303,7 @@
 //   }
 
 //   void testPrint(String printerIp, BuildContext ctx) async {
-//     // TODO Don't forget to choose printer's paper size
+    // TODO(Papersize): Don't forget to choose printer's paper size
 //     const PaperSize paper = PaperSize.mm80;
 //     final profile = await CapabilityProfile.load();
 //     final printer = NetworkPrinter(paper, profile);

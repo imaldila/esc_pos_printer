@@ -41,7 +41,6 @@ class NetworkPrinter {
       _socket = await Socket.connect(host, port, timeout: timeout);
       _socket.add(_generator.reset());
       isClosed = false;
-
       return Future<PosPrintResult>.value(PosPrintResult.success);
     } catch (e) {
       isClosed = true;
